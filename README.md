@@ -72,23 +72,9 @@ BASE_URL=https://api.openai.com/v1
 MODEL_NAME=gpt-4o
 ```
 
-##### Important Notes
-
-- ⚠️ **Never commit your API keys to version control**. Add `.env` to your `.gitignore` file.
-- 🔑 If `API_KEY` is not set, the program will raise a `ValueError` with a clear error message.
-- 🌐 For OpenAI-compatible services (like vLLM, Ollama, etc.), set the `BASE_URL` to your service endpoint.
-- 📦 Make sure to install the required dependencies: `pip install openai tqdm`
-
 </details>
 
 Here we provide our own code `evaluate/gen_response.py` which generates solutions for VLMs using API services with **asynchronous processing** and **smart resume functionality**. 
-
-#### Features
-
-- 🚀 **Concurrent Processing**: Process multiple questions simultaneously (default: 5 concurrent requests)
-- 🔄 **Smart Resume**: Automatically skip completed questions based on ID, not line numbers
-- 💾 **Real-time Saving**: Results are saved immediately after each completion
-- 🎯 **Flexible Output**: Includes both model responses and ground truth solutions
 
 #### Basic Usage
 
@@ -134,12 +120,6 @@ The script generates a JSONL file where each line contains:
 - **Automatic Resume**: If you interrupt the process, simply run the same command again
 - **ID-based Tracking**: The script tracks completed questions by their unique IDs
 - **Safe Interruption**: You can safely stop the process anytime (Ctrl+C) and resume later
-
-#### Performance Tips
-
-- **Concurrent Requests**: Increase `--max_concurrent` for faster processing (be mindful of API rate limits)
-- **Monitor Progress**: Real-time progress bar shows completion status
-- **Error Handling**: Failed requests are logged and can be retried by running the script again
 
 ### Evaluate
 
