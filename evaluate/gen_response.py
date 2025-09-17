@@ -9,9 +9,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 try:
     from openai import AsyncOpenAI
-    BASE_URL = os.getenv('BASE_URL', 'https://api.openai.com/v1')  # 提供默认值
-    API_KEY = os.getenv('API_KEY', 'DONT_FINE_OPENAI_KEY')  # 提供默认值
-    MODEL_NAME= os.getenv('MODEL_NAME', 'gpt-4o')  # 提供默认值
+    BASE_URL = os.getenv('BASE_URL', 'https://api.openai.com/v1')  # Provide default value
+    API_KEY = os.getenv('API_KEY', 'DONT_FINE_OPENAI_KEY')  # Provide default value
+    MODEL_NAME= os.getenv('MODEL_NAME', 'gpt-4o')  # Provide default value
     if API_KEY == 'DONT_FINE_OPENAI_KEY':
         raise ValueError("API key for OpenAI is not set. Please set the API_KEY environment variable.")
     client = AsyncOpenAI(base_url=BASE_URL, api_key=API_KEY)
@@ -39,7 +39,7 @@ def encode_image_to_base64(image_path):
         return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode('utf-8')}"
 
 def load_completed_ids(output_file):
-    """读取已完成的题目ID列表"""
+    """Load the list of completed question IDs"""
     completed_ids = set()
     if os.path.exists(output_file):
         try:
@@ -54,13 +54,13 @@ def load_completed_ids(output_file):
     return completed_ids
 
 async def process_single_item(item, input_file_dir, model_name, semaphore):
-    """处理单个题目的异步函数"""
-    async with semaphore:  # 限制并发数
+    """Async function to process a single question"""
+    async with semaphore:  # Limit concurrency
         try:
             item_id = item.get("id", "NOT_FOUND")
             en_problem = item.get("en_problem", "NOT_FOUND")
             image_path = item.get("image", "NOT_FOUND")
-            solution = item.get("solution", "NOT_FOUND")  # 获取GT解答
+            solution = item.get("solution", "NOT_FOUND")  # Get GT answer
 
             if item_id == "NOT_FOUND" or en_problem == "NOT_FOUND" or image_path == "NOT_FOUND" or solution == "NOT_FOUND":
                 raise ValueError(f"Missing required fields for item {item_id}")
@@ -91,10 +91,17 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
             )
             response_text = completion.choices[0].message.content
             
+            output_token = "N/A"
+            if hasattr(completion, "usage") and completion.usage:
+                output_token = completion.usage.completion_tokens
+            else:
+                print("No token usage found.")
+            
             return {
                 "id": item_id,
                 "response": response_text,
-                "solution": solution  # 添加GT解答
+                "solution": solution,  # Add GT answer
+                "output_token": output_token
             }
             
         except Exception as e:
@@ -102,7 +109,8 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
             return {
                 "id": item.get("id", "NOT_FOUND"),
                 "response": f"ERROR: {str(e)}",
-                "solution": item.get("solution", "NOT_FOUND")  # 即使出错也返回GT
+                "solution": item.get("solution", "NOT_FOUND"),  # Return GT even on error
+                "output_token": "N/A"
             }
 
 def parse_args():
@@ -127,20 +135,20 @@ async def main():
     if not output_file:
         output_file = os.path.join(input_file_dir, "response.jsonl")
     
-    # 确保输出目录存在
+    # Ensure output directory exists
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     
-    # 读取已完成的题目ID
+    # Load completed question IDs
     completed_ids = load_completed_ids(output_file)
     print(f"Found {len(completed_ids)} already completed items.")
     
-    # 读取所有输入数据
+    # Read all input data
     all_items = []
     with open(input_file, "r", encoding="utf-8") as fin:
         for line in fin:
             if line.strip():
                 item = json.loads(line)
-                # 跳过已完成的题目
+                # Skip completed questions
                 if item.get("id") not in completed_ids:
                     all_items.append(item)
     
@@ -150,21 +158,21 @@ async def main():
         print("No new items to process.")
         return
     
-    # 创建信号量来限制并发数
+    # Create semaphore to limit concurrency
     semaphore = asyncio.Semaphore(max_concurrent)
     
-    # 创建异步任务
+    # Create async tasks
     tasks = [process_single_item(item, input_file_dir, model_name, semaphore) for item in all_items]
     
-    # 以追加模式打开输出文件
+    # Open output file in append mode
     with open(output_file, "a", encoding="utf-8") as fout:
-        # 使用asyncio.as_completed处理异步任务，配合tqdm显示进度
+        # Process async tasks with tqdm progress bar
         completed_count = 0
         with tqdm(total=len(tasks), desc="Processing") as pbar:
             for coro in asyncio.as_completed(tasks):
                 result_data = await coro
                 fout.write(json.dumps(result_data, ensure_ascii=False) + "\n")
-                fout.flush()  # 立即写入文件
+                fout.flush()  # Write to file immediately
                 completed_count += 1
                 pbar.update(1)
 
