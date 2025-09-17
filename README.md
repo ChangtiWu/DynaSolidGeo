@@ -64,26 +64,12 @@ export BASE_URL="https://api.openai.com/v1"  # Optional
 export MODEL_NAME="gpt-4o"  # Optional
 ```
 
-**Using .env file (Recommended):**
-Create a `.env` file in the project root directory:
-```
-API_KEY=your_api_key_here
-BASE_URL=https://api.openai.com/v1
-MODEL_NAME=gpt-4o
-```
-
 </details>
 
 Here we provide our own code `evaluate/gen_response.py` which generates solutions for VLMs using API services with **asynchronous processing** and **smart resume functionality**. 
 
-#### Basic Usage
 
-**Process all questions in a dataset:**
-```cmd
-python evaluate/gen_response.py --input_file data/seed_0/problem.jsonl
-```
-
-**Advanced Usage with Custom Parameters:**
+##### Usage with Custom Parameters
 ```cmd
 # Custom output file and model
 python evaluate/gen_response.py \
