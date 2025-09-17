@@ -81,12 +81,65 @@ MODEL_NAME=gpt-4o
 
 </details>
 
-Here we provide our own code `evaluate/gen_response.py` which is to generate the solutions for close-sourced VLMs by API services. Please run `evaluate/gen_response.py` to generate the `evaluate/response.jsonl`(final answers only) and `evaluate/response_cot.jsonl` (full responses with CoT):
+Here we provide our own code `evaluate/gen_response.py` which generates solutions for VLMs using API services with **asynchronous processing** and **smart resume functionality**. 
 
+#### Features
+
+- 🚀 **Concurrent Processing**: Process multiple questions simultaneously (default: 5 concurrent requests)
+- 🔄 **Smart Resume**: Automatically skip completed questions based on ID, not line numbers
+- 💾 **Real-time Saving**: Results are saved immediately after each completion
+- 🎯 **Flexible Output**: Includes both model responses and ground truth solutions
+
+#### Basic Usage
+
+**Process all questions in a dataset:**
 ```cmd
-python evaluate/gen_response.py
+python evaluate/gen_response.py --input_file data/seed_0/problem.jsonl
 ```
 
+**Advanced Usage with Custom Parameters:**
+```cmd
+# Custom output file and model
+python evaluate/gen_response.py \
+    --input_file data/seed_0/problem.jsonl \
+    --output_file results/my_responses.jsonl \
+    --model_name gpt-4o-mini
+
+# Increase concurrent requests for faster processing
+python evaluate/gen_response.py \
+    --input_file data/seed_0/problem.jsonl \
+    --max_concurrent 10
+```
+
+#### Command Line Arguments
+
+- `--input_file`: Path to the input JSONL file containing questions
+- `--output_file`: Path to the output JSONL file (default: `{input_dir}/response.jsonl`)
+- `--model_name`: Model name to use (default: from `MODEL_NAME` environment variable)
+- `--max_concurrent`: Maximum concurrent requests (default: 5)
+
+#### Output Format
+
+The script generates a JSONL file where each line contains:
+```json
+{
+    "id": "question_unique_id",
+    "response": "model_generated_answer",
+    "solution": "ground_truth_solution"
+}
+```
+
+#### Resume Functionality
+
+- **Automatic Resume**: If you interrupt the process, simply run the same command again
+- **ID-based Tracking**: The script tracks completed questions by their unique IDs
+- **Safe Interruption**: You can safely stop the process anytime (Ctrl+C) and resume later
+
+#### Performance Tips
+
+- **Concurrent Requests**: Increase `--max_concurrent` for faster processing (be mindful of API rate limits)
+- **Monitor Progress**: Real-time progress bar shows completion status
+- **Error Handling**: Failed requests are logged and can be retried by running the script again
 
 ### Evaluate
 
