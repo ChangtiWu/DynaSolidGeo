@@ -101,7 +101,9 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
                 "id": item_id,
                 "response": response_text,
                 "solution": solution,  # Add GT answer
-                "output_token": output_token
+                "output_token": output_token,
+                "type": item.get("type", "N/A"),
+                "level": item.get("level", "N/A")
             }
             
         except Exception as e:
@@ -110,7 +112,9 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
                 "id": item.get("id", "NOT_FOUND"),
                 "response": f"ERROR: {str(e)}",
                 "solution": item.get("solution", "NOT_FOUND"),  # Return GT even on error
-                "output_token": "N/A"
+                "output_token": "N/A",
+                "type": item.get("type", "N/A"),
+                "level": item.get("level", "N/A")
             }
 
 def parse_args():
@@ -118,7 +122,7 @@ def parse_args():
     parser.add_argument("--input_file", type=str, help="Path to the input JSONL file.")
     parser.add_argument("--output_file", default=None, type=str, help="Path to the output JSONL file for final answers.")
     parser.add_argument("--model_name", type=str, default=None, help="The model name to use for generation.")
-    parser.add_argument("--max_concurrent", type=int, default=5, help="Maximum number of concurrent requests.")
+    parser.add_argument("--max_concurrent", type=int, default=32, help="Maximum number of concurrent requests.")
     return parser.parse_args()
 
 async def main():
