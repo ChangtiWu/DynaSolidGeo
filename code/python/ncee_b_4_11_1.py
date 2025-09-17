@@ -1,0 +1,52 @@
+import json
+import os
+# Set random seed
+import random
+import argparse
+import string
+import math
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--seed', type=int, default=0, help='Random seed (default: 0)')
+parser.add_argument('--mode', type=int, default=0, choices=[0, 1], help='Mode (default: 0)')
+args, unknown = parser.parse_known_args()
+random.seed(args.seed)
+
+# Scaling factor
+len_scaling_factor = round(random.uniform(0.1, 100.0), 1)
+
+# Generate random point names
+point_A, point_B, point_C, point_D, point_A1, point_B1, point_C1, point_D1, point_E = random.sample(string.ascii_uppercase, 9)
+
+# Generate random lengths
+len_s = 3.0
+len_h = 6.0
+len_s = round(len_scaling_factor * float(len_s), 2)
+len_h = round(len_scaling_factor * float(len_h), 2)
+
+# ─── 1. save JSON ─────────────────────────────── 
+json_data = {
+    "id": "ncee_b_4_11_1",
+    "type": 1,
+    "level": 3,
+    "cn_problem": f"已知长方体 {point_A}{point_B}{point_C}{point_D}-{point_A1}{point_B1}{point_C1}{point_D1} 中：(1) 底面 {point_A}{point_B}{point_C}{point_D} 为正方形，边长 {len_s}>0；(2) 长方体的高为 {len_h}>0；(3) 点 {point_E} 在棱 {point_A}{point_A1} 上，满足 {point_B}{point_E}⊥{point_E}{point_C1}。在由点集 {{{point_E},{point_B},{point_C},{point_C1}}} 任取三点所确定的全部平面中，唯一与线段 {point_B}{point_E} 垂直的平面是哪个？",
+    "en_problem": f"In rectangular parallelepiped {point_A}{point_B}{point_C}{point_D}-{point_A1}{point_B1}{point_C1}{point_D1}: (1) the base {point_A}{point_B}{point_C}{point_D} is a square with side length {len_s}>0; (2) the height of the parallelepiped is {len_h}>0; (3) point {point_E} is on edge {point_A}{point_A1} such that {point_B}{point_E}⊥{point_E}{point_C1}. Among all planes determined by selecting any three points from the set {{{point_E},{point_B},{point_C},{point_C1}}}, which is the unique plane perpendicular to line segment {point_B}{point_E}?",
+    "solution": f"{point_E}{point_B}{point_C1}",
+    "image": f"images/{os.path.splitext(os.path.basename(__file__))[0]}.png"
+}
+
+# Save to jsonl
+jsonl_path = os.path.join(os.path.dirname(__file__), "../../data/problem.jsonl")
+os.makedirs(os.path.dirname(jsonl_path), exist_ok=True)
+with open(jsonl_path, "a", encoding="utf-8") as f:
+    f.write(json.dumps(json_data, ensure_ascii=False) + "\n")
+    
+# ─── 2. save MATLAB command JSONL ─────────────────────────────── 
+mode = args.mode
+azimuth = (-150 + random.randint(0, 360)) % 360
+elevation = (25 + random.randint(0, 360)) % 360
+
+matlab_cmd_jsonl_path = os.path.join(os.path.dirname(__file__), "../../data/matlab_cmd.jsonl")
+os.makedirs(os.path.dirname(matlab_cmd_jsonl_path), exist_ok=True)
+with open(matlab_cmd_jsonl_path, "a", encoding="utf-8") as f:
+    f.write(json.dumps({json_data["id"]: f"ncee_b_4_11_1({mode}, {azimuth}, {elevation}, '{point_A}', '{point_B}', '{point_C}', '{point_D}', '{point_A1}', '{point_B1}', '{point_C1}', '{point_D1}', '{point_E}')"}, ensure_ascii=False) + "\n")
