@@ -3,7 +3,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from evalute_util import compute_score
+from geo_evalute import compute_score
 
 def run_tests():
     """运行所有测试案例"""

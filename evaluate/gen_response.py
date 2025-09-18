@@ -119,9 +119,9 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input_file", type=str, help="Path to the input JSONL file.")
-    parser.add_argument("--output_file", default=None, type=str, help="Path to the output JSONL file for final answers.")
-    parser.add_argument("--model_name", type=str, default=None, help="The model name to use for generation.")
+    parser.add_argument('-i', "--input_file", type=str, help="Path to the input JSONL file.")
+    parser.add_argument('-o', "--output_file", default=None, type=str, help="Path to the output JSONL file for final answers.")
+    parser.add_argument('-m', "--model_name", type=str, default=None, help="The model name to use for generation.")
     parser.add_argument("--max_concurrent", type=int, default=32, help="Maximum number of concurrent requests.")
     return parser.parse_args()
 

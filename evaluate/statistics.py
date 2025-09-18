@@ -5,11 +5,11 @@ import tempfile
 import shutil
 from tqdm import tqdm
 
-from evalute_util import compute_score
+from geo_evalute import compute_score
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--response_file", type=str, required=True, help="Path to the response JSONL file.")
+    parser.add_argument('-r', "--response_file", type=str, required=True, help="Path to the response JSONL file.")
     return parser.parse_args()
 
 def evaluate_responses_inplace(response_file):
