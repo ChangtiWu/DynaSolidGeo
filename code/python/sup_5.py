@@ -37,7 +37,7 @@ def calculate(len_m, len_n, arg_theta):
     # 计算 BD 的两种情况
     result_plus = math.sqrt(2 * (len_m ** 2) + (len_n ** 2) + 2 * (len_m ** 2) * math.cos(arg_theta))
     result_minus = math.sqrt(2 * (len_m ** 2) + (len_n ** 2) - 2 * (len_m ** 2) * math.cos(arg_theta))
-    return result_plus, result_minus
+    return result_minus
 
 
 # 定义题干参数

@@ -29,7 +29,7 @@ def calculate(len_n):
     S_large = (len_n + 1) ** 2
     S_small = 1
     S_frustum = len_n * (len_n + 2)
-    return (S_large, S_small, S_frustum)
+    return S_large, S_small, S_frustum
 
 
 # 定义题干中的参数
@@ -43,7 +43,7 @@ len_n = 1  # 高的比例 1:len_n
 len_n = int(len_scaling_factor * float(len_n))
 
 # Calculate the result
-result = calculate(len_n)
+result1, result2, result3 = calculate(len_n)
 
 # ─── 1. save JSON ─────────────────────────────── 
 json_data = {
@@ -52,7 +52,7 @@ json_data = {
     "level": 1,
     "cn_problem": f"正六棱锥被过棱锥高上一点且平行于底面的平面所截，该点分棱锥高的比为 1:{len_n}（{len_n} 为正整数），得到正六棱台和较小的棱锥。求大棱锥、小棱锥、棱台的侧面积之比。",
     "en_problem": f"A regular hexagonal pyramid is cut by a plane parallel to the base passing through a point on the pyramid height, where the point divides the height in the ratio 1:{len_n} ({len_n} is a positive integer), resulting in a regular hexagonal frustum and a smaller pyramid. Find the ratio of lateral surface areas of the large pyramid, small pyramid, and frustum.",
-    "solution": f"{result}",
+    "solution": f"{result1}:{result2}:{result3}",
     "image": f"images/{os.path.splitext(os.path.basename(__file__))[0]}.png"
 }
 

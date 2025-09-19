@@ -37,7 +37,7 @@ def calculate(len_slant, arg_alpha):
     # 公式2: 2l * sin(3α/2)
     result2 = 2 * len_slant * math.sin(3 * arg_alpha / 2)
     # 两个结果应当相等
-    return result1, result2
+    return result1
 
 
 # 题干给定的数值

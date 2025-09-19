@@ -51,7 +51,7 @@ len_a = round(len_scaling_factor * float(len_a), 2)
 len_l = round(len_scaling_factor * float(len_l), 2)
 
 # Calculate the result
-result = calculate(len_a, len_l)
+result1, result2 = calculate(len_a, len_l)
 
 # ─── 1. save JSON ─────────────────────────────── 
 json_data = {
@@ -60,7 +60,7 @@ json_data = {
     "level": 1,
     "cn_problem": f"已知正六棱锥被过其高的中点且平行于底面的平面所截，得到正六棱台。若小棱锥的底面边长为 {len_a}，大棱锥的侧棱长为 {len_l}，求截得的棱台的侧面积和表面积。",
     "en_problem": f"A regular hexagonal pyramid is cut by a plane parallel to the base passing through the midpoint of its height, resulting in a regular hexagonal frustum. Given that the base side length of the small pyramid is {len_a} and the lateral edge length of the large pyramid is {len_l}, find the lateral surface area and total surface area of the resulting frustum.",
-    "solution": f"{result}",
+    "solution": f"{result1}, {result2}",
     "image": f"images/{os.path.splitext(os.path.basename(__file__))[0]}.png"
 }
 

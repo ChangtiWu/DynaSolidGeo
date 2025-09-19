@@ -59,7 +59,7 @@ def calculate(len_t, val_v, len_p):
     x_plus = math.sqrt(numerator_plus / 2)
     x_minus = math.sqrt(numerator_minus / 2)
 
-    return x_plus, x_minus
+    return x_minus
 
 len_t = 2
 val_v = 7

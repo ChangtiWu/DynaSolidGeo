@@ -79,6 +79,10 @@ len_w = np.round(len_scaling_factor * len_w, 2)
 # Calculate the result
 result = calculate(len_u, len_v, len_w)
 
+# Convert result to string format
+result = "[" + ", ".join(map(str, result)) + "]"
+
+
 # ─── 1. save JSON ─────────────────────────────── 
 json_data = {
     "id": "hsmcel_t_4_20",

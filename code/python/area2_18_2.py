@@ -21,16 +21,15 @@ point_P, point_A, point_B, point_C, point_O, point_F = random.sample(string.asci
 # Add result calculation code
 def calculate():
     """
-    返回三棱锥平面夹角 cosα 的取值范围
+    返回三棱锥平面夹角 cosα 的最大值
 
-    返回:
-    tuple: (cosα_min, cosα_max)
+    返回: cosα_max
     """
     # 最小值
     cos_alpha_min = 0
     # 最大值趋近于 sqrt(21)/7
     cos_alpha_max = (21 ** 0.5) / 7
-    return cos_alpha_min, cos_alpha_max
+    return cos_alpha_max
 
 
 # 定义题干中的参数（仅数值参数，点名不用定义）
