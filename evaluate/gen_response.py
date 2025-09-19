@@ -91,8 +91,10 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
             )
             response_text = completion.choices[0].message.content
             
+            input_token = "N/A"
             output_token = "N/A"
             if hasattr(completion, "usage") and completion.usage:
+                input_token = completion.usage.prompt_tokens
                 output_token = completion.usage.completion_tokens
             else:
                 print("No token usage found.")
@@ -101,6 +103,7 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
                 "id": item_id,
                 "response": response_text,
                 "solution": solution,  # Add GT answer
+                "input_token": input_token,
                 "output_token": output_token,
                 "type": item.get("type", "N/A"),
                 "level": item.get("level", "N/A")
@@ -108,14 +111,7 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
             
         except Exception as e:
             print(f"Error processing item {item.get('id', 'NOT_FOUND')}: {e}")
-            return {
-                "id": item.get("id", "NOT_FOUND"),
-                "response": f"ERROR: {str(e)}",
-                "solution": item.get("solution", "NOT_FOUND"),  # Return GT even on error
-                "output_token": "N/A",
-                "type": item.get("type", "N/A"),
-                "level": item.get("level", "N/A")
-            }
+            return None  # Return None for errors instead of error data
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -175,8 +171,10 @@ async def main():
         with tqdm(total=len(tasks), desc="Processing") as pbar:
             for coro in asyncio.as_completed(tasks):
                 result_data = await coro
-                fout.write(json.dumps(result_data, ensure_ascii=False) + "\n")
-                fout.flush()  # Write to file immediately
+                # Only write to file if result is not None (no error)
+                if result_data is not None:
+                    fout.write(json.dumps(result_data, ensure_ascii=False) + "\n")
+                    fout.flush()  # Write to file immediately
                 completed_count += 1
                 pbar.update(1)
 
