@@ -33,7 +33,7 @@ def evaluate_responses_inplace(response_file):
     updated_items = []
     
     print(f"Evaluating file: {response_file}")
-    print("-" * 60)
+    print("-" * 70)
     
     # Read all data and process
     with open(response_file, "r", encoding="utf-8") as fin:
@@ -127,10 +127,8 @@ def evaluate_responses_inplace(response_file):
     # Calculate statistics
     if scores:
         accuracy = correct_items / len(scores)
-        average_score = sum(scores) / len(scores)
     else:
         accuracy = 0.0
-        average_score = 0.0
     
     # Calculate token statistics
     if tokens:
@@ -147,33 +145,58 @@ def evaluate_responses_inplace(response_file):
         median_tokens = 0
     
     # Print statistics
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 70)
     print(f"Evaluation Results: {os.getenv('MODEL_NAME', 'UNKNOWN')}")
-    print("=" * 60)
-    print(f"Total items: {total_items}")
-    print(f"Successfully evaluated: {len(scores)}")
-    print(f"Evaluation errors: {error_items}")
-    print(f"Correct answers: {correct_items}")
-    print(f"Accuracy: {accuracy:.4f} ({accuracy*100:.2f}%)")
-    print(f"Average score: {average_score:.4f}")
+    print("=" * 70)
+    print(f"Total items: {total_items}, Successfully evaluated: {len(scores)}, Evaluation errors: {error_items}")
+    print(f"Correct answers: {correct_items} ({accuracy*100:.2f}%)")
     
-    print("\n" + "-" * 40)
+    print("\n" + "=" * 70)
     print("Token Usage Statistics:")
-    print("-" * 40)
-    print(f"Valid token records: {len(tokens)}")
-    print(f"Total tokens: {total_tokens:,}")
-    print(f"Average tokens: {average_tokens:.2f}")
-    print(f"Min tokens: {min_tokens}")
-    print(f"Max tokens: {max_tokens}")
-    print(f"Median tokens: {median_tokens}")
+    print("=" * 70)
+    print(f"Valid token records: {len(tokens)} (Total tokens: {total_tokens:,})")
     
+    # Separate statistics for all, correct, and incorrect items
+    if len(scores) == len(tokens):
+        correct_tokens = [tokens[i] for i, score in enumerate(scores) if score == 1.0]
+        incorrect_tokens = [tokens[i] for i, score in enumerate(scores) if score == 0.0]
+        
+        print(f"\n{'Category':<12} {'Count':<8} {'Avg':<10} {'Min':<8} {'Max':<8} {'Median':<8}")
+        print("-" * 70)
+        
+        # All items
+        print(f"{'All Items':<12} {len(tokens):<8} {average_tokens:<10.2f} {min_tokens:<8} {max_tokens:<8} {median_tokens:<8}")
+        
+        # Correct items
+        if correct_tokens:
+            avg_correct = sum(correct_tokens) / len(correct_tokens)
+            min_correct = min(correct_tokens)
+            max_correct = max(correct_tokens)
+            median_correct = sorted(correct_tokens)[len(correct_tokens)//2]
+            print(f"{'Correct':<12} {len(correct_tokens):<8} {avg_correct:<10.2f} {min_correct:<8} {max_correct:<8} {median_correct:<8}")
+        else:
+            print(f"{'Correct':<12} {0:<8} {0.0:<10.2f} {0:<8} {0:<8} {0:<8}")
+        
+        # Incorrect items
+        if incorrect_tokens:
+            avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens)
+            min_incorrect = min(incorrect_tokens)
+            max_incorrect = max(incorrect_tokens)
+            median_incorrect = sorted(incorrect_tokens)[len(incorrect_tokens)//2]
+            print(f"{'Incorrect':<12} {len(incorrect_tokens):<8} {avg_incorrect:<10.2f} {min_incorrect:<8} {max_incorrect:<8} {median_incorrect:<8}")
+        else:
+            print(f"{'Incorrect':<12} {0:<8} {0.0:<10.2f} {0:<8} {0:<8} {0:<8}")
+    else:
+        print(f"Average tokens: {average_tokens:.2f}", end="")
+        print(f" (Min: {min_tokens:.2f}, Max: {max_tokens:.2f}, Median: {median_tokens:.2f})")
+
     return {
         "total_items": total_items,
         "evaluated_items": len(scores),
         "error_items": error_items,
         "correct_items": correct_items,
         "accuracy": accuracy,
-        "average_score": average_score,
+        "average_score": sum(scores) / len(scores) if scores else 0.0,
         "scores": scores,
         "tokens": tokens,
         "types": types,
@@ -193,10 +216,7 @@ def print_detailed_statistics(stats):
     
     # Token detailed statistics
     if tokens:
-        print(f"\n" + "=" * 60)
-        print("Token Usage Detailed Statistics:")
-        print("=" * 60)
-        
+
         # Token distribution ranges
         token_ranges = [
             (0, 2000, "    0- 2000"),
@@ -208,7 +228,7 @@ def print_detailed_statistics(stats):
             (50001, float('inf'), "50000+")
         ]
         
-        print("Token Distribution:")
+        print("\nToken Distribution:")
         for min_val, max_val, label in token_ranges:
             count = sum(1 for t in tokens if min_val <= t <= max_val)
             if count > 0:
@@ -284,74 +304,88 @@ def analyze_by_category(stats):
         print("No detailed data available for category analysis")
         return
     
-    print("\n" + "=" * 80)
+    print("\n" + "=" * 70)
     print("CATEGORY ANALYSIS")
-    print("=" * 80)
+    print("=" * 70)
     
     # Analysis by Type
     print("\n📊 Analysis by Problem Type:")
-    print("-" * 60)
+    print("-" * 70)
     type_stats = {}
     for data in detailed_data:
-        if data["type"] != "N/A":
+        if data["type"] != "N/A" and data["token"] != "N/A":
             t = data["type"]
             if t not in type_stats:
                 type_stats[t] = {"scores": [], "tokens": []}
             type_stats[t]["scores"].append(data["score"])
-            if data["token"] != "N/A":
-                type_stats[t]["tokens"].append(data["token"])
+            type_stats[t]["tokens"].append(data["token"])
     
     for t in sorted(type_stats.keys()):
         scores = type_stats[t]["scores"]
         tokens = type_stats[t]["tokens"]
         correct = sum(1 for s in scores if s == 1.0)
         accuracy = correct / len(scores) if scores else 0.0
-        avg_tokens = sum(tokens) / len(tokens) if tokens else 0.0
+        
+        # Calculate token statistics for correct, incorrect, and all items
+        correct_tokens = [tokens[i] for i, score in enumerate(scores) if score == 1.0]
+        incorrect_tokens = [tokens[i] for i, score in enumerate(scores) if score == 0.0]
+        
+        avg_all = sum(tokens) / len(tokens) if tokens else 0.0
+        avg_correct = sum(correct_tokens) / len(correct_tokens) if correct_tokens else 0.0
+        avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Type {t}: {type_names.get(t, 'Unknown')}")
-        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy:.3f} ({accuracy*100:5.1f}%) | Avg Tokens: {avg_tokens:6.1f}")
+        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
     
     # Analysis by Level
     print("\n📈 Analysis by Difficulty Level:")
-    print("-" * 60)
+    print("-" * 70)
     level_stats = {}
     for data in detailed_data:
-        if data["level"] != "N/A":
+        if data["level"] != "N/A" and data["token"] != "N/A":
             l = data["level"]
             if l not in level_stats:
                 level_stats[l] = {"scores": [], "tokens": []}
             level_stats[l]["scores"].append(data["score"])
-            if data["token"] != "N/A":
-                level_stats[l]["tokens"].append(data["token"])
+            level_stats[l]["tokens"].append(data["token"])
     
     for l in sorted(level_stats.keys()):
         scores = level_stats[l]["scores"]
         tokens = level_stats[l]["tokens"]
         correct = sum(1 for s in scores if s == 1.0)
         accuracy = correct / len(scores) if scores else 0.0
-        avg_tokens = sum(tokens) / len(tokens) if tokens else 0.0
+        
+        # Calculate token statistics for correct, incorrect, and all items
+        correct_tokens = [tokens[i] for i, score in enumerate(scores) if score == 1.0]
+        incorrect_tokens = [tokens[i] for i, score in enumerate(scores) if score == 0.0]
+        
+        avg_all = sum(tokens) / len(tokens) if tokens else 0.0
+        avg_correct = sum(correct_tokens) / len(correct_tokens) if correct_tokens else 0.0
+        avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Level {l}: {level_names.get(l, 'Unknown')}")
-        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy:.3f} ({accuracy*100:5.1f}%) | Avg Tokens: {avg_tokens:6.1f}")
+        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
     
     # Cross analysis: Type vs Level
     print("\n🔍 Cross Analysis: Type vs Level Accuracy Matrix:")
-    print("-" * 80)
+    print("-" * 70)
     print("Type\\Level", end="")
     for l in sorted(level_stats.keys()):
-        print(f"{level_names.get(l, f'L{l}'):>12}", end="")
+        print(f"{level_names.get(l, f'L{l}'):>12}", end="   ")
     print()
-    print("-" * 80)
+    print("-" * 70)
     
     for t in sorted(type_stats.keys()):
         print(f"Type {t:2d}   ", end="")
         for l in sorted(level_stats.keys()):
-            # Find items with this type and level
-            items = [d for d in detailed_data if d["type"] == t and d["level"] == l and d["score"] is not None]
+            # Find items with this type and level (only those with valid tokens)
+            items = [d for d in detailed_data if d["type"] == t and d["level"] == l and d["score"] is not None and d["token"] != "N/A"]
             if items:
                 correct = sum(1 for item in items if item["score"] == 1.0)
                 accuracy = correct / len(items)
-                print(f"{accuracy:8.3f}({len(items):2d})", end="")
+                print(f"  {accuracy:8.3f} ({len(items):2d})", end="")
             else:
                 print(f"{'':>12}", end="")
         print()
