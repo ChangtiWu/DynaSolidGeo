@@ -2,6 +2,14 @@
 
 A Dynamic Benchmark for VLM’s Spatial Mathematical Reasoning in Solid Geometry
 
+## Dependency
+
+```
+python == 3.11.11
+math-verify == 0.8.0
+pylatexenc == 2.10
+```
+
 ## How to use
 
 ### Generate the questions
