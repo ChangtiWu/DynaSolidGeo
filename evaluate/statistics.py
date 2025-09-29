@@ -1,20 +1,16 @@
 import json
 import argparse
 import os
-import tempfile
-import shutil
 from tqdm import tqdm
-
-from geo_evalute import compute_score
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-r', "--response_file", type=str, required=True, help="Path to the response JSONL file.")
+    parser.add_argument('-r', "--response_dec_file", type=str, required=True, help="Path to the response JSONL file.")
     return parser.parse_args()
 
-def evaluate_responses_inplace(response_file):
+def analyze_responses(response_file):
     """
-    Evaluate responses in-place, compute scores and add to the original file
+    Analyze responses and compute statistics without modifying the file
     
     Args:
         response_file: Path to the JSONL file containing model responses
@@ -30,18 +26,16 @@ def evaluate_responses_inplace(response_file):
     tokens = []  # Token statistics
     types = []   # Type statistics
     levels = []  # Level statistics
-    updated_items = []
     
-    print(f"Evaluating file: {response_file}")
+    print(f"Analyzing file: {response_file}")
     print("-" * 70)
     
     # Read all data and process
     with open(response_file, "r", encoding="utf-8") as fin:
         lines = fin.readlines()
     
-    for line in tqdm(lines, desc="Evaluating"):
+    for line in tqdm(lines, desc="Analyzing"):
         if not line.strip():
-            updated_items.append(line)
             continue
             
         try:
@@ -49,11 +43,12 @@ def evaluate_responses_inplace(response_file):
             
             # Get required fields
             item_id = item.get("id", "UNKNOWN")
-            model_response = item.get("response", "")
-            ground_truth = item.get("solution", "")
             output_token = item.get("output_token", "N/A")
             item_type = item.get("type", "N/A")
             item_level = item.get("level", "N/A")
+            expected_score = item.get("expected_score", None)
+            solution_dec = item.get("solution_dec", None)
+            process_dec = item.get("process_dec", None)
             
             # Collect token statistics (skip N/A)
             if output_token != "N/A" and output_token is not None:
@@ -69,60 +64,22 @@ def evaluate_responses_inplace(response_file):
             if item_level != "N/A" and item_level is not None:
                 levels.append(item_level)
             
-            # Check if already scored
-            if "expected_score" in item:
-                scores.append(item["expected_score"])
-                if item["expected_score"] == 1.0:
-                    correct_items += 1
-                updated_items.append(json.dumps(item, ensure_ascii=False) + "\n")
-                total_items += 1
-                continue
+            # Use expected_score if available, otherwise use solution_dec
+            score = expected_score if expected_score is not None else solution_dec
             
-            if not model_response or not ground_truth:
-                print(f"Warning: Missing response or solution for item {item_id}")
-                item["expected_score"] = 0.0
-                item["extracted_answer"] = ""
-                error_items += 1
+            if score is not None:
+                scores.append(score)
+                if score == 1.0:
+                    correct_items += 1
             else:
-                # Compute score
-                try:
-                    score, extracted = compute_score(model_response, ground_truth)
-                    item["expected_score"] = score
-                    item["extracted_answer"] = extracted
-                    
-                    scores.append(score)
-                    if score == 1.0:
-                        correct_items += 1
-                        
-                except Exception as e:
-                    print(f"Error computing score for item {item_id}: {e}")
-                    item["expected_score"] = 0.0
-                    item["extracted_answer"] = ""
-                    error_items += 1
+                error_items += 1
             
             total_items += 1
-            updated_items.append(json.dumps(item, ensure_ascii=False) + "\n")
             
         except json.JSONDecodeError as e:
             print(f"Error parsing JSON line: {e}")
             error_items += 1
-            updated_items.append(line)  # Keep original line
             continue
-    
-    # Safely update original file using temporary file
-    temp_file = response_file + ".tmp"
-    try:
-        with open(temp_file, "w", encoding="utf-8") as fout:
-            fout.writelines(updated_items)
-        
-        # Atomic replacement of original file
-        shutil.move(temp_file, response_file)
-        print(f"✓ File updated in-place: {response_file}")
-        
-    except Exception as e:
-        if os.path.exists(temp_file):
-            os.remove(temp_file)
-        raise e
     
     # Calculate statistics
     if scores:
@@ -146,9 +103,9 @@ def evaluate_responses_inplace(response_file):
     
     # Print statistics
     print("\n" + "=" * 70)
-    print(f"Evaluation Results: {os.getenv('MODEL_NAME', 'UNKNOWN')}")
+    print(f"Analysis Results: {os.getenv('MODEL_NAME', 'UNKNOWN')}")
     print("=" * 70)
-    print(f"Total items: {total_items}, Successfully evaluated: {len(scores)}, Evaluation errors: {error_items}")
+    print(f"Total items: {total_items}, Successfully analyzed: {len(scores)}, Analysis errors: {error_items}")
     print(f"Correct answers: {correct_items} ({accuracy*100:.2f}%)")
     
     print("\n" + "=" * 70)
@@ -192,7 +149,7 @@ def evaluate_responses_inplace(response_file):
 
     return {
         "total_items": total_items,
-        "evaluated_items": len(scores),
+        "analyzed_items": len(scores),
         "error_items": error_items,
         "correct_items": correct_items,
         "accuracy": accuracy,
@@ -250,7 +207,7 @@ def print_detailed_statistics(stats):
     else:
         print(f"\nNo valid Token statistics data")
 
-def analyze_by_category(stats):
+def analyze_by_category(response_file):
     """
     Analyze statistics by type and level categories
     """
@@ -273,8 +230,7 @@ def analyze_by_category(stats):
         3: "Hard"
     }
     
-    # Read the file again to get detailed statistics with type/level info
-    response_file = parse_args().response_file
+    # Read the file to get detailed statistics with type/level info
     detailed_data = []
     
     with open(response_file, "r", encoding="utf-8") as f:
@@ -282,7 +238,11 @@ def analyze_by_category(stats):
             if line.strip():
                 try:
                     item = json.loads(line.strip())
-                    if "expected_score" in item:
+                    expected_score = item.get("expected_score", None)
+                    solution_dec = item.get("solution_dec", None)
+                    score = expected_score if expected_score is not None else solution_dec
+                    
+                    if score is not None:
                         token_val = item.get("output_token", "N/A")
                         if token_val != "N/A":
                             try:
@@ -294,7 +254,7 @@ def analyze_by_category(stats):
                             "id": item.get("id", "UNKNOWN"),
                             "type": item.get("type", "N/A"),
                             "level": item.get("level", "N/A"),
-                            "score": item.get("expected_score", 0.0),
+                            "score": score,
                             "token": token_val
                         })
                 except json.JSONDecodeError:
@@ -394,9 +354,9 @@ if __name__ == "__main__":
     args = parse_args()
     
     try:
-        stats = evaluate_responses_inplace(args.response_file)
+        stats = analyze_responses(args.response_dec_file)
         print_detailed_statistics(stats)
-        analyze_by_category(stats)
+        analyze_by_category(args.response_dec_file)
         
     except Exception as e:
         print(f"Error: {e}")
