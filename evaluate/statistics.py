@@ -103,7 +103,7 @@ def analyze_responses(response_file):
     
     # Print statistics
     print("\n" + "=" * 70)
-    print(f"Analysis Results: {os.getenv('MODEL_NAME', 'UNKNOWN')}")
+    print(f"Analysis Results:")
     print("=" * 70)
     print(f"Total items: {total_items}, Successfully analyzed: {len(scores)}, Analysis errors: {error_items}")
     print(f"Correct answers: {correct_items} ({accuracy*100:.2f}%)")
@@ -295,7 +295,7 @@ def analyze_by_category(response_file):
         avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Type {t}: {type_names.get(t, 'Unknown')}")
-        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
     
     # Analysis by Level
@@ -325,7 +325,7 @@ def analyze_by_category(response_file):
         avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Level {l}: {level_names.get(l, 'Unknown')}")
-        print(f"  Items: {len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
     
     # Cross analysis: Type vs Level
