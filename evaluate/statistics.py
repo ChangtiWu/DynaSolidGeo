@@ -240,6 +240,7 @@ def analyze_by_category(response_file):
                     item = json.loads(line.strip())
                     expected_score = item.get("expected_score", None)
                     solution_dec = item.get("solution_dec", None)
+                    process_dec = item.get("process_dec", None)
                     score = expected_score if expected_score is not None else solution_dec
                     
                     if score is not None:
@@ -255,7 +256,8 @@ def analyze_by_category(response_file):
                             "type": item.get("type", "N/A"),
                             "level": item.get("level", "N/A"),
                             "score": score,
-                            "token": token_val
+                            "token": token_val,
+                            "process_dec": process_dec
                         })
                 except json.JSONDecodeError:
                     continue
@@ -272,6 +274,7 @@ def analyze_by_category(response_file):
     print("\n📊 Analysis by Problem Type:")
     print("-" * 70)
     type_stats = {}
+    process_type_stats = {}
     for data in detailed_data:
         if data["type"] != "N/A" and data["token"] != "N/A":
             t = data["type"]
@@ -279,7 +282,23 @@ def analyze_by_category(response_file):
                 type_stats[t] = {"scores": [], "tokens": []}
             type_stats[t]["scores"].append(data["score"])
             type_stats[t]["tokens"].append(data["token"])
-    
+        # For process_dec statistics
+        if data["type"] != "N/A" and data["process_dec"] is not None:
+            t = data["type"]
+            if t not in process_type_stats:
+                process_type_stats[t] = {"process_scores": [], "solution_scores": [], "joint_correct": 0, "total": 0}
+            try:
+                process_score = float(data["process_dec"])
+            except (ValueError, TypeError):
+                process_score = None
+            process_type_stats[t]["total"] += 1
+            if process_score is not None:
+                process_type_stats[t]["process_scores"].append(process_score)
+                process_type_stats[t]["solution_scores"].append(data["score"])
+                # solution=1 and process>=0.75
+                if data["score"] == 1.0 and process_score >= 0.75:
+                    process_type_stats[t]["joint_correct"] += 1
+
     for t in sorted(type_stats.keys()):
         scores = type_stats[t]["scores"]
         tokens = type_stats[t]["tokens"]
@@ -297,11 +316,20 @@ def analyze_by_category(response_file):
         print(f"Type {t}: {type_names.get(t, 'Unknown')}")
         print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
+        # Process_dec statistics by type
+        if t in process_type_stats and process_type_stats[t]["process_scores"]:
+            avg_process = sum(process_type_stats[t]["process_scores"]) / len(process_type_stats[t]["process_scores"])
+            joint_total = len(process_type_stats[t]["process_scores"])
+            joint_correct = process_type_stats[t]["joint_correct"]
+            joint_ratio = joint_correct / joint_total if joint_total > 0 else 0.0
+            print(f"  Avg process_dec score: {avg_process:.3f}")
+            print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{joint_total} ({joint_ratio*100:.2f}%)")
     
     # Analysis by Level
     print("\n📈 Analysis by Difficulty Level:")
     print("-" * 70)
     level_stats = {}
+    process_level_stats = {}
     for data in detailed_data:
         if data["level"] != "N/A" and data["token"] != "N/A":
             l = data["level"]
@@ -309,7 +337,22 @@ def analyze_by_category(response_file):
                 level_stats[l] = {"scores": [], "tokens": []}
             level_stats[l]["scores"].append(data["score"])
             level_stats[l]["tokens"].append(data["token"])
-    
+        # For process_dec statistics
+        if data["level"] != "N/A" and data["process_dec"] is not None:
+            l = data["level"]
+            if l not in process_level_stats:
+                process_level_stats[l] = {"process_scores": [], "solution_scores": [], "joint_correct": 0, "total": 0}
+            try:
+                process_score = float(data["process_dec"])
+            except (ValueError, TypeError):
+                process_score = None
+            process_level_stats[l]["total"] += 1
+            if process_score is not None:
+                process_level_stats[l]["process_scores"].append(process_score)
+                process_level_stats[l]["solution_scores"].append(data["score"])
+                if data["score"] == 1.0 and process_score >= 0.75:
+                    process_level_stats[l]["joint_correct"] += 1
+
     for l in sorted(level_stats.keys()):
         scores = level_stats[l]["scores"]
         tokens = level_stats[l]["tokens"]
@@ -327,6 +370,14 @@ def analyze_by_category(response_file):
         print(f"Level {l}: {level_names.get(l, 'Unknown')}")
         print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
+        # Process_dec statistics by level
+        if l in process_level_stats and process_level_stats[l]["process_scores"]:
+            avg_process = sum(process_level_stats[l]["process_scores"]) / len(process_level_stats[l]["process_scores"])
+            joint_total = len(process_level_stats[l]["process_scores"])
+            joint_correct = process_level_stats[l]["joint_correct"]
+            joint_ratio = joint_correct / joint_total if joint_total > 0 else 0.0
+            print(f"  Avg process_dec score: {avg_process:.3f}")
+            print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{joint_total} ({joint_ratio*100:.2f}%)")
     
     # Cross analysis: Type vs Level
     print("\n🔍 Cross Analysis: Type vs Level Accuracy Matrix:")
@@ -350,6 +401,104 @@ def analyze_by_category(response_file):
                 print(f"{'':>12}", end="")
         print()
 
+def analyze_process_dec(response_file):
+    """
+    统计process_dec字段（评分），不仅统计不同类别的平均分，而且给出solution=1&&process>=0.75的比率（综合正确率）
+    """
+    # Type mapping
+    type_names = {
+        1: "Positional Relationship Determination (PD)",
+        2: "Angle Calculation (AN)", 
+        3: "Length and Distance Calculation (LC)",
+        4: "Area Calculation (AR)",
+        5: "Volume Calculation (VC)",
+        6: "Counting Problems (CP)",
+        7: "Dynamic or Moving-Point Problems (DM)",
+        8: "Folding and Unfolding Problems (FP)"
+    }
+    # Level mapping
+    level_names = {
+        1: "Easy",
+        2: "Medium", 
+        3: "Hard"
+    }
+    # Gather data
+    process_type_stats = {}
+    process_level_stats = {}
+    total_joint = 0
+    total_joint_correct = 0
+    with open(response_file, "r", encoding="utf-8") as f:
+        for line in f:
+            if not line.strip():
+                continue
+            try:
+                item = json.loads(line.strip())
+            except Exception:
+                continue
+            t = item.get("type", None)
+            l = item.get("level", None)
+            solution = item.get("expected_score", None)
+            if solution is None:
+                solution = item.get("solution_dec", None)
+            process = item.get("process_dec", None)
+            try:
+                process_score = float(process) if process is not None else None
+            except Exception:
+                process_score = None
+            # By type
+            if t is not None and process_score is not None:
+                if t not in process_type_stats:
+                    process_type_stats[t] = {"process_scores": [], "joint_correct": 0, "total": 0}
+                process_type_stats[t]["process_scores"].append(process_score)
+                process_type_stats[t]["total"] += 1
+                if solution == 1.0 and process_score >= 0.75:
+                    process_type_stats[t]["joint_correct"] += 1
+            # By level
+            if l is not None and process_score is not None:
+                if l not in process_level_stats:
+                    process_level_stats[l] = {"process_scores": [], "joint_correct": 0, "total": 0}
+                process_level_stats[l]["process_scores"].append(process_score)
+                process_level_stats[l]["total"] += 1
+                if solution == 1.0 and process_score >= 0.75:
+                    process_level_stats[l]["joint_correct"] += 1
+            # Overall
+            if process_score is not None:
+                total_joint += 1
+                if solution == 1.0 and process_score >= 0.75:
+                    total_joint_correct += 1
+    if not process_type_stats and not process_level_stats:
+        print("\nNo process_dec statistics available.")
+        return
+    print("\n" + "=" * 70)
+    print("process_dec 字段统计（评分）及综合正确率")
+    print("=" * 70)
+    # By type
+    print("\n📊 按类别统计 process_dec 平均分及综合正确率:")
+    print("-" * 70)
+    for t in sorted(process_type_stats.keys()):
+        avg_process = sum(process_type_stats[t]["process_scores"]) / len(process_type_stats[t]["process_scores"])
+        joint_correct = process_type_stats[t]["joint_correct"]
+        total = process_type_stats[t]["total"]
+        joint_ratio = joint_correct / total if total > 0 else 0.0
+        print(f"Type {t}: {type_names.get(t, 'Unknown')}")
+        print(f"  Avg process_dec score: {avg_process:.3f}")
+        print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{total} ({joint_ratio*100:.2f}%)")
+    # By level
+    print("\n📈 按难度统计 process_dec 平均分及综合正确率:")
+    print("-" * 70)
+    for l in sorted(process_level_stats.keys()):
+        avg_process = sum(process_level_stats[l]["process_scores"]) / len(process_level_stats[l]["process_scores"])
+        joint_correct = process_level_stats[l]["joint_correct"]
+        total = process_level_stats[l]["total"]
+        joint_ratio = joint_correct / total if total > 0 else 0.0
+        print(f"Level {l}: {level_names.get(l, 'Unknown')}")
+        print(f"  Avg process_dec score: {avg_process:.3f}")
+        print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{total} ({joint_ratio*100:.2f}%)")
+    # Overall
+    print("\n🔢 综合正确率（所有有 process_dec 的样本）:")
+    joint_ratio = total_joint_correct / total_joint if total_joint > 0 else 0.0
+    print(f"  综合正确率(solution=1 & process>=0.75): {total_joint_correct}/{total_joint} ({joint_ratio*100:.2f}%)")
+
 if __name__ == "__main__":
     args = parse_args()
     
@@ -357,6 +506,7 @@ if __name__ == "__main__":
         stats = analyze_responses(args.response_dec_file)
         print_detailed_statistics(stats)
         analyze_by_category(args.response_dec_file)
+        analyze_process_dec(args.response_dec_file)
         
     except Exception as e:
         print(f"Error: {e}")
