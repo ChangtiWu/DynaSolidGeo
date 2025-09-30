@@ -16,32 +16,47 @@ except ImportError:
     print("To use openai, please install it first by running `pip install openai`.")
 
 EVALUATION_PROMPT = r'''
-Please evaluate the correctness of the reasoning process in the given response to a geometry problem.
+You are a professional judge of geometric reasoning.
+Score whether the TARGET reasoning response CAUSALLY SUPPORTS its final answer, under the rubric below.
+Judge only the TARGET; ignore stylistic similarity to the reference.
 
+== REFERENCE ==
 Problem:
-{problem}
+{reference_problem}
 
 Reference reasoning process:
 {reference_thinking}
 
-Response to evaluate:
+== RESPONSE TO EVALUATE ==
 {response}
 
-Evaluation Criteria:
-1. Mathematical accuracy: Are the mathematical steps and calculations correct?
-2. Logical consistency: Does the reasoning flow logically from one step to the next?
-3. Completeness: Are all necessary steps included to reach the conclusion?
-4. Clarity: Is the reasoning clear and well-explained?
-5. Alignment with reference: How well does the response align with the reference reasoning approach?
+== EVALUATION CRITERIA (set upper bounds if violated) ==
+S1 Logical Alignment (required):
+   The response presents a coherent derivation whose reasoning leads to the response's stated result with matching variables/units and no conclusion jump.
+   If violated, cap score at 0.50.
 
-Please provide a score from 0 to 1:
-- 1.0: Perfect reasoning with correct mathematical steps and clear logic, well-aligned with reference
-- 0.8-0.9: Good reasoning with minor issues or unclear explanations
-- 0.6-0.7: Adequate reasoning but with some mathematical errors or logical gaps
-- 0.4-0.5: Poor reasoning with significant errors or major logical issues
-- 0.0-0.3: Incorrect or completely flawed reasoning
+S2 No Extraneous Information (required):
+   The response does not introduce unseen quantities or facts as essential premises (standard geometric axioms/theorems are allowed).
+   If violated, cap score at 0.50.
 
-Please provide only a numerical score (0.0 to 1.0) as your final answer.
+S3 Use of Key Dependencies (strong constraint):
+   The response explicitly uses key geometric relations from the problem (parallel/similar/perpendicular/collinear/ratio/angle, etc.), rather than skipping conditions and merely reporting a result.
+   If violated, cap score at 0.75.
+
+== SCORE BANDS (choose exactly one, respecting any caps) ==
+1.00  Full Causality: satisfies S1–S3; contains a complete, traceable derivation from given conditions to the stated result; variables/units consistent; no contradictions.
+0.75  Near Causality: satisfies S1–S3; overall sound with one minor lapse (e.g., trivial arithmetic/notation slip or an implicit standard step) that is easily fixed.
+0.50  Partial Support: at least satisfies S1; captures some key relations but is insufficient to reach the stated result (a conclusion jump/missing closure), or contains minor non-essential extraneous reference.
+0.25  Marginally Related: includes a few correct but weakly connected facts; little causal progress toward the stated result.
+0.00  Not Supportive/Incorrect: contradictions, circular reasoning, wrong core dependency, or clear mismatch between reasoning and stated result.
+
+== CONSTRAINTS ==
+- Do NOT use numeric content or steps from the reference to score the response.
+- If uncertain, choose the lower band.
+- Output must be EXACTLY one of: 0, 0.25, 0.5, 0.75, 1.00 — print the number only, with no other text or spaces.
+
+== Output Format ==
+Output ONE number only: 0, 0.25, 0.5, 0.75, or 1.00.
 '''.strip()
 
 def parse_args():
@@ -102,15 +117,15 @@ async def evaluate_single_response(item, model_name, semaphore, thinking_data):
             
             # Get thinking data for this item
             thinking_info = thinking_data.get(item_id, {})
-            problem = thinking_info.get("en_problem", "")
+            reference_problem = thinking_info.get("en_problem", "")
             reference_thinking = thinking_info.get("en_think", "")
             
-            if not problem or not reference_thinking:
+            if not reference_problem or not reference_thinking:
                 print(f"Warning: Missing problem or reference thinking for item {item_id}")
                 return item_id, 0.0
             
             evaluation_prompt = EVALUATION_PROMPT.format(
-                problem=problem,
+                reference_problem=reference_problem,
                 reference_thinking=reference_thinking,
                 response=response
             )
