@@ -20,7 +20,7 @@ len_scaling_factor = round(random.uniform(0.1, 100.0), 1)
 # 功能: 计算图中长方体的数量，返回值为23
 
 def calculate():
-    return 23
+    return 27
 
 #result=calculate()
 #print(result)
