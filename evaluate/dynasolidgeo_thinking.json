@@ -4262,8 +4262,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3三类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+1+1=6个，1*2的长方体平面左指方向有1个、平面右指方向有2个、纵轴方向有2个，共1+2+2=5个，1*3的长方体平面右指方向有1个、纵轴方向有1个，共1+1=2个；【总数】6+5+2=13个",
+    "en_think": "【Classification】There are three possible types of rectangular prisms: 1*1, 1*2, 1*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 4+1+1=6, 1*2 rectangular prisms in the left direction of the plane have 1, in the right direction of the plane have 2, and in the vertical direction have 2, totaling 1+2+2=5, 1*3 rectangular prisms in the right direction of the plane have 1, and in the vertical direction have 1, totaling 1+1=2;【Total】6+5+2=13"
   },
   {
     "id": "count_2",
@@ -4271,8 +4271,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3三类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+1+1=6个，1*2的长方体平面前指方向有1个、平面后指方向有2个、纵轴方向有2个，共1+2+2=5个，1*3的长方体平面后指方向有1个、纵轴方向有1个，共1+1=2个；【总数】6+5+2=13个",
+    "en_think": "【Classification】There are three possible types of rectangular prisms: 1*1, 1*2, 1*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 4+1+1=6, 1*2 rectangular prisms in the front direction of the plane have 1, in the back direction of the plane have 2, and in the vertical direction have 2, totaling 1+2+2=5, 1*3 rectangular prisms in the back direction of the plane have 1, and in the vertical direction have 1, totaling 1+1=2;【Total】6+5+2=13"
   },
   {
     "id": "count_3",
@@ -4280,8 +4280,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3三类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有3+1+1=5个，1*2的长方体平面前指方向有1个、平面后指方向有1个、纵轴方向有2个，共1+1+2=4个，1*3的长方体纵轴方向有1个；【总数】5+4+1=10个",
+    "en_think": "【Classification】There are three possible types of rectangular prisms: 1*1, 1*2, 1*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 3+1+1=5, 1*2 rectangular prisms in the front direction of the plane have 1, in the back direction of the plane have 1, and in the vertical direction have 2, totaling 1+1+2=4, 1*3 rectangular prisms in the vertical direction have 1;【Total】5+4+1=10"
   },
   {
     "id": "count_4",
@@ -4289,8 +4289,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+1+1=6个，1*2的长方体平面左指方向有2个、平面后指方向有2个、纵轴方向有2个，共2+2+2=6个，1*3的长方体纵轴方向有1个；2*2的长方体底层有1个；【总数】6+6+1+1=14个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 4+1+1=6, 1*2 rectangular prisms in the left direction of the plane have 2, in the back direction of the plane have 2, and in the vertical direction have 2, totaling 2+2+2=6, 1*3 rectangular prisms in the vertical direction have 1; 2*2 rectangular prisms at the bottom have 1;【Total】6+6+1+1=14"
   },
   {
     "id": "count_5",
@@ -4298,8 +4298,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有3+2+1=6个，1*2的长方体平面左指方向有1+1=2个、平面右指方向有1个、纵轴方向有1+2=3个，共2+1+3=6个，1*3的长方体纵轴方向有1个；2*2的长方体直立有1个；【总数】6+6+1+1=14个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 3+2+1=6, 1*2 rectangular prisms in the left direction of the plane have 1+1=2, in the right direction of the plane have 1, and in the vertical direction have 1+2=3, totaling 2+1+3=6, 1*3 rectangular prisms in the vertical direction have 1; 2*2 rectangular prisms standing have 1;【Total】6+6+1+1=14"
   },
   {
     "id": "count_6",
@@ -4307,8 +4307,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有3+2+1=6个，1*2的长方体平面外指方向有2+1=3个、纵轴方向有2+1=3个，共3+3=6个，1*3的长方体平面外指方向有1个、纵轴方向有1个，共1+1=2个；2*2的长方体直立有1个；【总数】6+6+2+1=15个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 3+2+1=6, 1*2 rectangular prisms in the outward direction of the plane have 2+1=3, and in the vertical direction have 2+1=3, totaling 3+3=6, 1*3 rectangular prisms in the outward direction of the plane have 1, and in the vertical direction have 1, totaling 1+1=2; 2*2 rectangular prisms standing have 1;【Total】6+6+2+1=15"
   },
   {
     "id": "count_7",
@@ -4316,8 +4316,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3三类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有3+1+1=5个，1*2的长方体平面前指方向有2个、纵轴方向有2个，共2+2=4个，1*3的长方体平面前指方向有1个、纵轴方向有1个，共1+1=2个；【总数】5+4+2=11个",
+    "en_think": "【Classification】There are three possible types of rectangular prisms: 1*1, 1*2, 1*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 3+1+1=5, 1*2 rectangular prisms in the front direction of the plane have 2, and in the vertical direction have 2, totaling 2+2=4, 1*3 rectangular prisms in the front direction of the plane have 1, and in the vertical direction have 1, totaling 1+1=2;【Total】5+4+2=11"
   },
   {
     "id": "count_8",
@@ -4325,8 +4325,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*3五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有2+2+2=6个，1*2的长方体平面右指方向有3个、纵轴方向有2+2=4个，共3+4=7个，1*3的长方体纵轴方向有1+1=2个；2*2的长方体直立有2个；2*3的长方体直立有1个；【总数】6+7+2+2+1=18个",
+    "en_think": "【Classification】There are five possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2, 2*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 2+2+2=6, 1*2 rectangular prisms in the right direction of the plane have 3, and in the vertical direction have 2+2=4, totaling 3+4=7, 1*3 rectangular prisms in the vertical direction have 1+1=2; 2*2 rectangular prisms standing have 2; 2*3 rectangular prisms standing have 1;【Total】6+7+2+2+1=18"
   },
   {
     "id": "count_9",
@@ -4334,8 +4334,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有3+2+1=6个，1*2的长方体平面外指方向有2+1=3个、纵轴方向有2+1=3个，共3+3=6个，1*3的长方体平面外指方向有1个、纵轴方向有1个，共1+1=2个；2*2的长方体直立有1个；【总数】6+6+2+1=15个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 3+2+1=6, 1*2 rectangular prisms in the outward direction of the plane have 2+1=3, and in the vertical direction have 2+1=3, totaling 3+3=6, 1*3 rectangular prisms in the outward direction of the plane have 1, and in the vertical direction have 1, totaling 1+1=2; 2*2 rectangular prisms standing have 1;【Total】6+6+2+1=15"
   },
   {
     "id": "count_10",
@@ -4343,8 +4343,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*3五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有6+2+1=9个，1*2的长方体平面外指方向有3+1=4个、平面内指方向有2+2=4个、纵轴方向有2+1=3个，共4+4+3=11个，1*3的长方体纵轴方向有1个、平面内指方向有1+1=2个，共1+2=3个；2*2的长方体直立有1个、平面有2个，共1+2=3个；2*3的长方体横向有1个；【总数】9+11+3+3+1=27个",
+    "en_think": "【Classification】There are five possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2, 2*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 6+2+1=9, 1*2 rectangular prisms in the outward direction of the plane have 3+1=4, in the inward direction of the plane have 2+2=4, and in the vertical direction have 2+1=3, totaling 4+4+3=11, 1*3 rectangular prisms in the vertical direction have 1, and in the inward direction of the plane have 1+1=2, totaling 1+2=3; 2*2 rectangular prisms standing have 1, and in the plane have 2, totaling 1+2=3; 2*3 rectangular prisms lying horizontally have 1;【Total】9+11+3+3+1=27"
   },
   {
     "id": "count_11",
@@ -4352,8 +4352,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3三类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有5+2+2=9个，1*2的长方体平面前指方向有2个、平面后指方向有2个、纵轴方向有2+2=4个，共2+2+4=8个，1*3的长方体平面后指方向有1个、纵轴方向有2个，共1+2=3个；【总数】9+8+3=20个",
+    "en_think": "【Classification】There are three possible types of rectangular prisms: 1*1, 1*2, 1*3;【Counting separately】: 1*1 rectangular prisms from bottom to top have 5+2+2=9, 1*2 rectangular prisms in the front direction of the plane have 2, in the back direction of the plane have 2, and in the vertical direction have 2+2=4, totaling 2+2+4=8, 1*3 rectangular prisms in the back direction of the plane have 1, and in the vertical direction have 2, totaling 1+2=3;【Total】9+8+3=20"
   },
   {
     "id": "count_12",
@@ -4361,8 +4361,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+2=6个，1*2的长方体平面内指方向有1个、平面内指方向有2+1=3个、纵轴方向有1+1=2个，共1+3+2=6个，1*3的长方体平面外指方向有1个；2*2的长方体直立有1个；【总数】6+6+1+1=14个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 4+2=6, 1*2 rectangular prisms in the inward direction of the plane have 1, in the inward direction of the plane have 2+1=3, and in the vertical direction have 1+1=2, totaling 1+3+2=6, 1*3 rectangular prisms in the outward direction of the plane have 1; 2*2 rectangular prisms standing have 1;【Total】6+6+1+1=14"
   },
   {
     "id": "count_13",
@@ -4370,8 +4370,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+3=7个，1*2的长方体平面左指方向有2+1=3个、平面右指方向有1+1=2个、纵轴方向有3个，共3+2+3=8个，1*3的长方体平面外指方向有1个；2*2的长方体直立有2个；【总数】7+8+1+2=17个",
+    "en_think": "【Classification】There are four possible types of rectangular prisms: 1*1, 1*2, 1*3, 2*2;【Counting separately】: 1*1 rectangular prisms from bottom to top have 4+3=7, 1*2 rectangular prisms in the left direction of the plane have 2+1=3, in the right direction of the plane have 1+1=2, and in the vertical direction have 3, totaling 3+2+3=8, 1*3 rectangular prisms in the outward direction of the plane have 1; 2*2 rectangular prisms standing have 2;【Total】7+8+1+2=17"
   },
   {
     "id": "count_14",
@@ -4379,8 +4379,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+2+1=7个，1*2的长方体平面外指方向有2+1=3个、平面内指方向有2个、纵轴方向有3个，共3+2+3=8个，1*3的长方体纵轴方向有1个；2*2的长方体直立有1个、平面有1个，共1+1=2个；【总数】7+8+1+2=17个",
+    "en_think": "[Classification] There are four possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, and 2*2; [Count separately]: 1*1 rectangular prisms from bottom to top are 4+2+1=7; 1*2 rectangular prisms in the outward direction of the plane are 2+1=3, in the inward direction of the plane are 2, and in the vertical direction are 3, totaling 3+2+3=8; 1*3 rectangular prisms in the vertical direction are 1; 2*2 rectangular prisms standing are 1, and in the plane are 1, totaling 1+1=2; [Total] 7+8+1+2=17"
   },
   {
     "id": "count_15",
@@ -4388,8 +4388,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2四类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+2=6个，1*2的长方体平面左指方向有2个、平面右指方向有2个、纵轴方向有2个，共2+2+2=6个，1*3的长方体平面左指方向有1个；2*2的长方体直立有1个；【总数】6+6+1+1=14个",
+    "en_think": "[Classification] There are four possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, and 2*2; [Count separately]: 1*1 rectangular prisms from bottom to top are 4+2=6; 1*2 rectangular prisms in the left direction of the plane are 2, in the right direction of the plane are 2, and in the vertical direction are 2, totaling 2+2+2=6; 1*3 rectangular prisms in the left direction of the plane are 1; 2*2 rectangular prisms standing are 1; [Total] 6+6+1+1=14"
   },
   {
     "id": "count_16",
@@ -4397,8 +4397,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分维度考察可能性】这是一个标准的2*3*2堆积的长方体组，有三个方向（平面左指，平面右指，纵轴）；【分别检查可能性】平面左指有选择1个（3种）、选择2个（2种）、选择3个（1种）共3+2+1=6种可能性，平面右指有选择1个（2种）、选择2个（1种）共2+1=3种可能性，纵轴有选择1个（2种）、选择2个（1种）共2+1=3种可能性；【乘积求可能种类】乘法原理：一共有6*3*3=54种",
+    "en_think": "[Dimensional analysis of possibilities] This is a standard 2*3*2 stacked cuboid group, with three directions (left in the plane, right in the plane, vertical axis); [Check possibilities separately] Left in the plane: choose 1 (3 ways), choose 2 (2 ways), choose 3 (1 way), total 3+2+1=6 possibilities; Right in the plane: choose 1 (2 ways), choose 2 (1 way), total 2+1=3 possibilities; Vertical axis: choose 1 (2 ways), choose 2 (1 way), total 2+1=3 possibilities; [Product for total types] Multiplication principle: there are 6*3*3=54 types in total"
   },
   {
     "id": "count_17",
@@ -4406,8 +4406,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*3五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有6+2=8个，1*2的长方体平面左指方向有4个、平面右指方向有3+1=4个、纵轴方向有2个，共4+4+2=10个，1*3的长方体平面左指方向有2个；2*2的长方体直立有1个、平面有2个，共1+2=3个；2*3的长方体平面有1个；【总数】8+10+2+3+1=24个",
+    "en_think": "[Classification] There are five possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, 2*2, and 2*3; [Count separately]: 1*1 rectangular prisms from bottom to top are 6+2=8; 1*2 rectangular prisms in the left direction of the plane are 4, in the right direction of the plane are 3+1=4, and in the vertical direction are 2, totaling 4+4+2=10; 1*3 rectangular prisms in the left direction of the plane are 2; 2*2 rectangular prisms standing are 1, and in the plane are 2, totaling 1+2=3; 2*3 rectangular prisms in the plane are 1; [Total] 8+10+2+3+1=24"
   },
   {
     "id": "count_18",
@@ -4415,8 +4415,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*2*2五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+4+1=9个，1*2的长方体平面左指方向有2+2=4个、平面右指方向有2+2=4个、纵轴方向有5个，共4+4+5=13个，1*3的长方体纵轴方向有1个；2*2的长方体直立（两个方向）有2+2=4个、平面有2个，共4+2=6个；2*2*2的长方体有1个；【总数】9+13+1+6+1=30个",
+    "en_think": "[Classification] There are five possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, 2*2, and 2*2*2; [Count separately]: 1*1 rectangular prisms from bottom to top are 4+4+1=9; 1*2 rectangular prisms in the left direction of the plane are 2+2=4, in the right direction of the plane are 2+2=4, and in the vertical direction are 5, totaling 4+4+5=13; 1*3 rectangular prisms in the vertical direction are 1; 2*2 rectangular prisms standing (two directions) are 2+2=4, in the plane are 2, totaling 4+2=6; 2*2*2 rectangular prisms are 1; [Total] 9+13+1+6+1=30"
   },
   {
     "id": "count_19",
@@ -4424,8 +4424,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*3五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有5+4+1=10个，1*2的长方体平面左指方向有1+2=3个、平面右指方向有3+2=5个、纵轴方向有5个，共3+5+5=13个，1*3的长方体纵轴方向有1个、平面右指方向有2个，共1+2=3个；2*2的长方体直立（两个方向）有1+2=3个、平面有1个，共3+1=4个；2*3的长方体有1个；【总数】10+13+3+4+1=31个",
+    "en_think": "[Classification] There are five possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, 2*2, and 2*3; [Count separately]: 1*1 rectangular prisms from bottom to top are 5+4+1=10; 1*2 rectangular prisms in the left direction of the plane are 1+2=3, in the right direction of the plane are 3+2=5, and in the vertical direction are 5, totaling 3+5+5=13; 1*3 rectangular prisms in the vertical direction are 1, in the right direction of the plane are 2, totaling 1+2=3; 2*2 rectangular prisms standing (two directions) are 1+2=3, in the plane are 1, totaling 3+1=4; 2*3 rectangular prisms are 1; [Total] 10+13+3+4+1=31"
   },
   {
     "id": "count_20",
@@ -4433,8 +4433,8 @@
     "level": 2,
     "cn_problem": "请数出图上共有多少个长方体",
     "en_problem": "Please count how many rectangular prisms are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【分类】图中共有1*1，1*2，1*3，2*2，2*3五类长方体的可能；【分别计数】：1*1的长方体从下层往上层数共有4+3+2=9个，1*2的长方体平面左指方向有2+2=4个、平面右指方向有1个、纵轴方向有5个，共4+1+5=10个，1*3的长方体纵轴方向有2个、平面左指方向有2个，共2+2=4个；2*2的长方体直立有2个；2*3的长方体有1个；【总数】9+10+4+2+1=26个",
+    "en_think": "[Classification] There are five possible types of rectangular prisms in the figure: 1*1, 1*2, 1*3, 2*2, and 2*3; [Count separately]: 1*1 rectangular prisms from bottom to top are 4+3+2=9; 1*2 rectangular prisms in the left direction of the plane are 2+2=4, in the right direction of the plane are 1, and in the vertical direction are 5, totaling 4+1+5=10; 1*3 rectangular prisms in the vertical direction are 2, in the left direction of the plane are 2, totaling 2+2=4; 2*2 rectangular prisms standing are 2; 2*3 rectangular prisms are 1; [Total] 9+10+4+2+1=26"
   },
   {
     "id": "count_21",
@@ -4442,8 +4442,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有5个、第二层有4个、最高层有1个；【加和求解】一共5+4+1=10个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 5 cubes on the bottom layer, 4 cubes on the second layer, and 1 cube on the top layer; [Sum to solve] There are 5+4+1=10 cubes in total"
   },
   {
     "id": "count_22",
@@ -4451,8 +4451,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有5个、第二层有3个、最高层有1个；【加和求解】一共5+3+1=9个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 5 cubes on the bottom layer, 3 cubes on the second layer, and 1 cube on the top layer; [Sum to solve] There are 5+3+1=9 cubes in total"
   },
   {
     "id": "count_23",
@@ -4460,8 +4460,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有2层，最下面一层有7个、第二层有6个；【加和求解】一共7+6=13个",
+    "en_think": "[Count layer by layer] There are 2 layers in total, with 7 cubes on the bottom layer and 6 cubes on the second layer; [Sum to solve] There are 7+6=13 cubes in total"
   },
   {
     "id": "count_24",
@@ -4469,8 +4469,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有2层，最下面一层有9个、第二层有5个；【加和求解】一共9+5=14个",
+    "en_think": "[Count layer by layer] There are 2 layers in total, with 9 cubes on the bottom layer and 5 cubes on the second layer; [Sum to solve] There are 9+5=14 cubes in total"
   },
   {
     "id": "count_25",
@@ -4478,8 +4478,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有2层，最下面一层有10个、第二层有3个；【加和求解】一共10+3=13个",
+    "en_think": "[Count layer by layer] There are 2 layers in total, with 10 cubes on the bottom layer and 3 cubes on the second layer; [Sum to solve] There are 10+3=13 cubes in total"
   },
   {
     "id": "count_26",
@@ -4487,8 +4487,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有2层，最下面一层有15个、第二层有7个；【加和求解】一共15+7=22个",
+    "en_think": "[Count layer by layer] There are 2 layers in total, with 15 cubes on the bottom layer and 7 cubes on the second layer; [Sum to solve] There are 15+7=22 cubes in total"
   },
   {
     "id": "count_27",
@@ -4496,8 +4496,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有12个、第二层有7个、最高层有3个；【加和求解】一共12+7+3=22个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 12 cubes on the bottom layer, 7 cubes on the second layer, and 3 cubes on the top layer; [Sum to solve] There are 12+7+3=22 cubes in total"
   },
   {
     "id": "count_28",
@@ -4505,8 +4505,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有16个、第二层有6个、最高层有3个；【加和求解】一共16+6+3=25个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 16 cubes on the bottom layer, 6 cubes on the second layer, and 3 cubes on the top layer; [Sum to solve] There are 16+6+3=25 cubes in total"
   },
   {
     "id": "count_29",
@@ -4514,8 +4514,8 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有12个、第二层有7个、最高层有3个；【加和求解】一共12+7+3=22个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 12 cubes on the bottom layer, 7 cubes on the second layer, and 3 cubes on the top layer; [Sum to solve] There are 12+7+3=22 cubes in total"
   },
   {
     "id": "count_30",
@@ -4523,7 +4523,7 @@
     "level": 1,
     "cn_problem": "请数出图上共有多少个正方体",
     "en_problem": "Please count how many cubes are in the figure",
-    "cn_think": "",
-    "en_think": ""
+    "cn_think": "【一层一层数】一共有3层，最下面一层有13个、第二层有8个、最高层有2个；【加和求解】一共13+8+2=23个",
+    "en_think": "[Count layer by layer] There are 3 layers in total, with 13 cubes on the bottom layer, 8 cubes on the second layer, and 2 cubes on the top layer; [Sum to solve] There are 13+8+2=23 cubes in total"
   }
 ]
