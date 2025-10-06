@@ -58,6 +58,13 @@ def evaluate_solutions(response_file, output_file=None):
             item_id = item.get("id", "UNKNOWN")
             model_response = item.get("response", "")
             ground_truth = item.get("solution", "")
+
+            # if model_response contains <|begin_of_box|> and <|end_of_box|>, extract the content between them as model_response
+            if "<|begin_of_box|>" in model_response and "<|end_of_box|>" in model_response: 
+                import re
+                match = re.search(r"<\|begin_of_box\|>(.*?)<\|end_of_box\|>", model_response, re.DOTALL)
+                if match:
+                    model_response = "\\boxed{"+match.group(1).strip()+"}"
             
             if not model_response or not ground_truth:
                 print(f"Warning: Missing response or solution for item {item_id}")
