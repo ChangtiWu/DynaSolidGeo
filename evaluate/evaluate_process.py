@@ -251,7 +251,7 @@ async def main():
         
         if valid_scores:
             avg_score = sum(valid_scores) / len(valid_scores)
-            high_quality = sum(1 for score in valid_scores if score >= 0.8)
+            high_quality = sum(1 for score in valid_scores if score >= 0.75)
             
             print("\n" + "=" * 70)
             print("Process Evaluation Results:")
@@ -260,7 +260,7 @@ async def main():
             print(f"Valid evaluations: {len(valid_scores)}")
             print(f"Evaluation errors: {error_count}")
             print(f"Average process score: {avg_score:.3f}")
-            print(f"High quality processes (≥0.8): {high_quality} ({high_quality/len(valid_scores)*100:.1f}%)")
+            print(f"Qualified processes (≥0.75): {high_quality} ({high_quality/len(valid_scores)*100:.1f}%)")
             print(f"Results saved to: {response_dec_file}")
         else:
             print("\n" + "=" * 70)
