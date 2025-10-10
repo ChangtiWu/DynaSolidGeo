@@ -3,7 +3,7 @@ import argparse
 import os
 from tqdm import tqdm
 
-from geo_evalute import compute_score
+from geo_evaluate import compute_score
 
 def parse_args():
     parser = argparse.ArgumentParser()

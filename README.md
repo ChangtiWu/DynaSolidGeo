@@ -2,16 +2,14 @@
 
 A Dynamic Benchmark for VLM’s Spatial Mathematical Reasoning in Solid Geometry
 
-## Dependency
-
-```
-python == 3.11.11
-math-verify == 0.8.0
-pylatexenc == 2.10
-tqdm == 4.67.1
-```
-
 ## How to use
+
+### Environment
+To install all dependencies for this project, please ensure that you have `Python ≥ 3.10` and are running on a `Linux` system.
+And then, run:
+```bash
+pip install -r requirements.txt
+```
 
 ### Generate the questions
 
