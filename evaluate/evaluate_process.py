@@ -150,11 +150,12 @@ async def evaluate_single_response(item, model_name, semaphore, thinking_data):
             
             # Extract numerical score from the response
             try:
-                # Try to find a number between 0 and 1
+                # Try to find the last number between 0 and 1
                 import re
-                score_match = re.search(r'([0-1](?:\.\d+)?)', evaluation_result)
-                if score_match:
-                    score = float(score_match.group(1))
+                matches = list(re.finditer(r'([0-1](?:\.\d+)?)', evaluation_result))
+                if matches:
+                    last_match = matches[-1]
+                    score = float(last_match.group(1))
                     score = max(0.0, min(1.0, score))  # Clamp to [0, 1]
                 else:
                     print(f"Warning: Could not extract score from evaluation result for item {item_id}: {evaluation_result}")
