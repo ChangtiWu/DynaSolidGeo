@@ -2,3 +2,4 @@ tqdm
 math-verify
 pylatexenc
 git+https://github.com/LiamLian0727/geo_evaluate.git@main
+matlabengine

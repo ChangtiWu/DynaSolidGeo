@@ -5,6 +5,9 @@ A Dynamic Benchmark for VLM’s Spatial Mathematical Reasoning in Solid Geometry
 ## How to use
 
 ### Environment
+
+Generating question instances requires invoking MATLAB to generate images (via the `matlabengine` library in Python). The version of MATLAB used in the paper is MATLAB R2025a.
+
 To install all dependencies for this project, please ensure that you have `Python ≥ 3.10` and are running on a `Linux` system.
 And then, run:
 ```bash
