@@ -1,6 +1,8 @@
 # DynaSolidGeo
 
-A Dynamic Benchmark for VLM’s Spatial Mathematical Reasoning in Solid Geometry
+<img src="assets\dynasolidgeo-logo.png" alt="logo" style="zoom: 20%;" />
+
+DynaSolidGeo: A Dynamic Benchmark for Genuine Spatial Mathematical Reasoning of VLMs in Solid Geometry
 
 ## How to use
 
