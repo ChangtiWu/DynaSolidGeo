@@ -1,6 +1,8 @@
 # DynaSolidGeo
 
-<img src="assets\dynasolidgeo-logo.png" alt="logo" style="zoom: 20%;" />
+<p align="center">
+<a href=""><img src="assets/dynasolidgeo-logo.png" alt="logo" width="150px"></a>
+</p>
 
 DynaSolidGeo: A Dynamic Benchmark for Genuine Spatial Mathematical Reasoning of VLMs in Solid Geometry
 
