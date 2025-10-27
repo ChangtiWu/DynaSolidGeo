@@ -123,6 +123,30 @@ The script generates a JSONL file where each line contains:
 
 ### Evaluate
 
-Run `evaluate/evaluate.py` to get the right (res=1) or not (res=0), which is saved to `evaluate/response_with_res.jsonl`.
+First, run `evaluate/evaluate_solution.py` to get the result of *answer evaluation*:
 
-Run `evaluate/statistics.py` to get the statistics.
+```cmd
+# Custom input file and output file
+python evaluate/evaluate_solution.py \
+    --response_file data/seed_0/my_responses.jsonl \
+    --output_file data/seed_0/dec_my_responses.jsonl \
+    --model_name gpt-4o-mini
+```
+
+Then, run `evaluate/evaluate_process.py` to get the result of *process evaluation* to update the `dec_my_responses.jsonl`:
+
+```cmd
+# Custom input file, output file, and model
+python evaluate/evaluate_solution.py \
+    --response_dec_file data/seed_0/dec_my_responses.jsonl \
+    --model_name gpt-4o-mini \
+    --max_concurrent 5 # Maximum number of concurrent requests.
+```
+
+Finally, run `evaluate/statistics.py` to print the overall statistics:
+
+```cmd
+python evaluate/statistics.py \
+    --response_dec_file data/seed_0/dec_my_responses.jsonl
+```
+
