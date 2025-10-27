@@ -10,10 +10,11 @@ DynaSolidGeo: A Dynamic Benchmark for Genuine Spatial Mathematical Reasoning of 
 
 ### Environment
 
-Generating question instances requires invoking MATLAB to generate images or videos (via the `matlabengine` library in Python). The version of MATLAB used in the paper is MATLAB R2025a.
+Generating question instances requires invoking MATLAB to generate images or videos (via the `matlabengine` library in Python). The version of MATLAB used in the paper is MATLAB R2025a. The version of the `matlabengine` must be compatible with the MATLAB version (refer to https://pypi.org/project/matlabengine/25.1.1/).
 
 To install all dependencies for this project, please ensure that you have `Python ≥ 3.10` and are running on a `Linux` system.
 And then, run:
+
 ```bash
 pip install -r requirements.txt
 ```
