@@ -10,7 +10,7 @@ DynaSolidGeo: A Dynamic Benchmark for Genuine Spatial Mathematical Reasoning of 
 
 ### Environment
 
-Generating question instances requires invoking MATLAB to generate images or videos (via the `matlabengine` library in Python). The version of MATLAB used in the paper is MATLAB R2025a (Windows). The version of the `matlabengine` must be compatible with the MATLAB version (refer to https://pypi.org/project/matlabengine/25.1.1/).
+Generating question instances requires invoking MATLAB to generate images or videos (via the `matlabengine` library in Python). Therefore, you must install MATLAB on your computer first, the version of MATLAB used in the paper is MATLAB R2025a (Windows). The version of the `matlabengine` must be compatible with the MATLAB version (refer to https://pypi.org/project/matlabengine/25.1.1/).
 
 To install all dependencies for this project, please ensure that you have `Python ≥ 3.10`.
 And then, run:
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ### Generate the question instances
 
-Firstly, run the `utils/json_gen.py` to generate the json of the random-sampled question instances by providing `mode` and `seed`, which is saved to the `data/problem.jsonl`:
+Firstly, run the `utils/json_gen.py` to generate the json of the random-sampled question instances by providing `mode` and `seed`, which is saved to the `data/problem.jsonl`, with the corresponding MATLAB invoke commands are stored in `data/matlab_cmd.jsonl`:
 
 ```cmd
 python utils/json_gen.py --mode=0 --seed=0
