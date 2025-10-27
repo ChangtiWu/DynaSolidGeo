@@ -143,10 +143,15 @@ python evaluate/evaluate_solution.py \
     --max_concurrent 5 # Maximum number of concurrent requests.
 ```
 
-Finally, run `evaluate/statistics.py` to print the overall statistics:
+Finally, run `evaluate/statistics.py` or `evaluate/statistics_multi.py` to print the overall statistics:
 
 ```cmd
+# Statistics the single file
 python evaluate/statistics.py \
     --response_dec_file data/seed_0/dec_my_responses.jsonl
+
+# Statistics the multi files
+python evaluate/statistics_multi.py \
+    --response_dec_files data/seed_0/dec_my_responses.jsonl data/seed_1/dec_my_responses.jsonl data/seed_2/dec_my_responses.jsonl
 ```
 
