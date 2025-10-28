@@ -4,6 +4,11 @@
 <a href=""><img src="assets/dynasolidgeo-logo.png" alt="logo" width="150px"></a>
 </p>
 
+<p align="center">
+    <a href="https://arxiv.org/abs/2510.22340", target="_blank"><img src="https://img.shields.io/badge/arXiv-2509.24473-b31b1b.svg"></a>
+</p>
+
+
 DynaSolidGeo: A Dynamic Benchmark for Genuine Spatial Mathematical Reasoning of VLMs in Solid Geometry
 
 ## How to use
