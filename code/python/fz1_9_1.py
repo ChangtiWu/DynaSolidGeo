@@ -63,6 +63,12 @@ json_data = {
     "image": f"images/{os.path.splitext(os.path.basename(__file__))[0]}.png"
 }
 
+# video mode
+if args.mode == 1:
+    json_data["image"] = f"videos/{os.path.splitext(os.path.basename(__file__))[0]}.mp4"
+
+
+
 # Save to jsonl
 jsonl_path = os.path.join(os.path.dirname(__file__), "../../data/problem.jsonl")
 os.makedirs(os.path.dirname(jsonl_path), exist_ok=True)

@@ -48,7 +48,7 @@ len_c = round(len_scaling_factor * float(len_c), 2)
 # Calculate the result
 result = calculate(len_a, len_b, len_c)
 
-# ─── 1. save JSON ─────────────────────────────── 
+# ─── 1. save JSON ───────────────────────────────
 json_data = {
     "id": "aops_11_aimeI_8",
     "type": 8,
@@ -58,6 +58,12 @@ json_data = {
     "solution": f"{result}",
     "image": f"images/{os.path.splitext(os.path.basename(__file__))[0]}.png"
 }
+
+# video mode
+if args.mode == 1:
+    json_data["image"] = f"videos/{os.path.splitext(os.path.basename(__file__))[0]}.mp4"
+
+
 
 # Save to jsonl
 jsonl_path = os.path.join(os.path.dirname(__file__), "../../data/problem.jsonl")
