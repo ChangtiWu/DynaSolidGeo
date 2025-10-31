@@ -137,8 +137,7 @@ First, run `evaluate/evaluate_solution.py` to get the result of *answer evaluati
 # Custom input file and output file
 python evaluate/evaluate_solution.py \
     --response_file data/seed_0/my_responses.jsonl \
-    --output_file data/seed_0/dec_my_responses.jsonl \
-    --model_name gpt-4o-mini
+    --output_file data/seed_0/dec_my_responses.jsonl
 ```
 
 Then, run `evaluate/evaluate_process.py` to get the result of *process evaluation* to update the `dec_my_responses.jsonl`:
