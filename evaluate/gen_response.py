@@ -38,6 +38,10 @@ def encode_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         return f"data:image/jpeg;base64,{base64.b64encode(image_file.read()).decode('utf-8')}"
 
+def encode_video_to_base64(video_path):
+    with open(video_path, "rb") as video_file:
+        return f"data:video/mp4;base64,{base64.b64encode(video_file.read()).decode('utf-8')}"
+
 def load_completed_ids(output_file):
     """Load the list of completed question IDs"""
     completed_ids = set()
@@ -69,7 +73,17 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
             if not os.path.exists(full_image_path):
                 raise FileNotFoundError(f"Image file {full_image_path} does not exist for item {item_id}")
             
-            image_base64 = encode_image_to_base64(full_image_path)
+            # Determine if it's an image or video based on the path
+            if image_path.startswith("images"):
+                # Image input
+                media_base64 = encode_image_to_base64(full_image_path)
+                media_content = {"type": "image_url", "image_url": {"url": media_base64}}
+            elif image_path.startswith("videos"):
+                # Video input
+                media_base64 = encode_video_to_base64(full_image_path)
+                media_content = {"type": "video_url", "video_url": {"url": media_base64}}
+            else:
+                raise ValueError(f"Unknown media type for path: {image_path}")
             
             completion = await client.chat.completions.create(
                 extra_headers={
@@ -82,12 +96,14 @@ async def process_single_item(item, input_file_dir, model_name, semaphore):
                     {
                         "role": "user",
                         "content": [
-                            {"type": "image_url", "image_url": {"url": image_base64}},
+                            media_content,
                             {"type": "text", "text": en_problem + "\n\n-----\n\n" + USER_PROMPT},
                         ]
                     }
                 ],
-                temperature=0.0
+                temperature=0.0,
+                timeout=1800,
+                # reeasoning={"enabled": True}
             )
             response_text = completion.choices[0].message.content
             
