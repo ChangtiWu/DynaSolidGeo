@@ -353,7 +353,7 @@ def analyze_by_category(response_files):
             joint_total = len(process_type_stats[t]["process_scores"])
             joint_correct = process_type_stats[t]["joint_correct"]
             joint_ratio = joint_correct / joint_total if joint_total > 0 else 0.0
-            print(f"  Avg process_dec score: {avg_process:.3f}")
+            print(f"  Avg process_dec score: {avg_process:.4f}")
             print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{joint_total} ({joint_ratio*100:.2f}%)")
 
     # Analysis by Level
@@ -404,7 +404,7 @@ def analyze_by_category(response_files):
             joint_total = len(process_level_stats[l]["process_scores"])
             joint_correct = process_level_stats[l]["joint_correct"]
             joint_ratio = joint_correct / joint_total if joint_total > 0 else 0.0
-            print(f"  Avg process_dec score: {avg_process:.3f}")
+            print(f"  Avg process_dec score: {avg_process:.4f}")
             print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{joint_total} ({joint_ratio*100:.2f}%)")
 
     # Cross analysis: Type vs Level
@@ -515,7 +515,7 @@ def analyze_process_dec(response_files):
         total = process_type_stats[t]["total"]
         joint_ratio = joint_correct / total if total > 0 else 0.0
         print(f"Type {t}: {type_names.get(t, 'Unknown')}")
-        print(f"  Avg process_dec score: {avg_process:.3f}")
+        print(f"  Avg process_dec score: {avg_process:.4f}")
         print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{total} ({joint_ratio*100:.2f}%)")
     # By level
     print("\n📈 按难度统计 process_dec 平均分及综合正确率:")
@@ -526,7 +526,7 @@ def analyze_process_dec(response_files):
         total = process_level_stats[l]["total"]
         joint_ratio = joint_correct / total if total > 0 else 0.0
         print(f"Level {l}: {level_names.get(l, 'Unknown')}")
-        print(f"  Avg process_dec score: {avg_process:.3f}")
+        print(f"  Avg process_dec score: {avg_process:.4f}")
         print(f"  综合正确率(solution=1 & process>=0.75): {joint_correct}/{total} ({joint_ratio*100:.2f}%)")
     # Overall
     print("\n🔢 综合正确率（所有有 process_dec 的样本）:")
