@@ -345,7 +345,7 @@ def analyze_by_category(response_files):
         avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Type {t}: {type_names.get(t, 'Unknown')}")
-        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.2f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
         # Process_dec statistics by type
         if t in process_type_stats and process_type_stats[t]["process_scores"]:
@@ -396,7 +396,7 @@ def analyze_by_category(response_files):
         avg_incorrect = sum(incorrect_tokens) / len(incorrect_tokens) if incorrect_tokens else 0.0
         
         print(f"Level {l}: {level_names.get(l, 'Unknown')}")
-        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.1f}%")
+        print(f"  Items: {correct:3d}/{len(scores):3d} | Accuracy: {accuracy*100:5.2f}%")
         print(f"  Tokens - All: {avg_all:7.1f} | Correct: {avg_correct:7.1f} | Incorrect: {avg_incorrect:7.1f}")
         # Process_dec statistics by level
         if l in process_level_stats and process_level_stats[l]["process_scores"]:
