@@ -162,3 +162,8 @@ python evaluate/statistics_multi.py \
     --response_dec_files data/seed_0/dec_my_responses.jsonl data/seed_1/dec_my_responses.jsonl data/seed_2/dec_my_responses.jsonl
 ```
 
+
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ChangtiWu/DynaSolidGeo&type=date&legend=top-left)](https://www.star-history.com/#ChangtiWu/DynaSolidGeo&type=date&legend=top-left)
