@@ -167,3 +167,7 @@ python evaluate/statistics_multi.py \
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=ChangtiWu/DynaSolidGeo&type=date&legend=top-left)](https://www.star-history.com/#ChangtiWu/DynaSolidGeo&type=date&legend=top-left)
+
+## Thanks
+
+We extend our gratitude to **Bobanzhijie (Beijing) Technology Co., Ltd. (博伴智界)** and the students from the School of Mathematical Sciences at Peking University for their support in data annotation.
